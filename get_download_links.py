@@ -151,17 +151,20 @@ def process_single_url_with_fresh_driver(url, headless=False):
 
 def main():
     """Main function."""
-    headless_input = input("Run in headless mode? (y/n) [default: n]: ").strip().lower()
-    headless = headless_input in ['y', 'yes']
+    # headless_input = input("Run in headless mode? (y/n) [default: n]: ").strip().lower()
+    # headless = headless_input in ['y', 'yes']
+    headless = False
     
-    wait_input = input("Wait time between URLs (seconds) [default: 3]: ").strip()
+    # wait_input = input("Wait time between URLs (seconds) [default: 3]: ").strip()
+    wait_input = "5"
     try:
         wait_time = int(wait_input) if wait_input else 3
     except ValueError:
         wait_time = 3
     
-    interactive_input = input("Interactive mode? (y/n) [default: n]: ").strip().lower()
-    interactive = interactive_input in ['y', 'yes']
+    # interactive_input = input("Interactive mode? (y/n) [default: n]: ").strip().lower()
+    # interactive = interactive_input in ['y', 'yes']
+    interactive = False
     
     filename = "all_match_urls.txt"
     
@@ -178,7 +181,7 @@ def main():
     try:
         for i, url in enumerate(urls, 1):
             
-            if i < 5:
+            # if i < 9:
                 # # Process URL
                 # demo_link = process_url(driver, url)
                 # all_demo_links.append(demo_link)
@@ -195,8 +198,8 @@ def main():
                 if i < len(urls):
                     time.sleep(wait_time)
 
-            else: 
-                break
+            # else: 
+            #     break
 
         
         print("works")
