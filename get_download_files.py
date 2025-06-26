@@ -124,11 +124,11 @@ def download_file_requests(url, download_path, filename):
         print(f"Error downloading {filename}: {e}")
         return False
 
-def wait_for_download_selenium(download_path, timeout=60):
+def wait_for_download_selenium(download_path, timeout=None):
     """Wait for download to complete when using Selenium."""
     start_time = time.time()
     
-    while time.time() - start_time < timeout:
+    while timeout is None or  time.time() - start_time < timeout:
         # Check for .crdownload files (Chrome partial downloads)
         temp_files = [f for f in os.listdir(download_path) if f.endswith('.crdownload')]
         if not temp_files:
@@ -146,12 +146,12 @@ def process_download_url_with_fresh_driver(url, download_path, headless=False):
     try:
         print(f"\nProcessing: {url}")
         
-        # First try with requests (faster and more reliable)
-        filename = get_filename_from_url(url)
-        if download_file_requests(url, download_path, filename):
-            return True
+        # # First try with requests (faster and more reliable)
+        # filename = get_filename_from_url(url)
+        # if download_file_requests(url, download_path, filename):
+        #     return True
         
-        print("Requests method failed, trying with Selenium...")
+        # print("Requests method failed, trying with Selenium...")
         
         # Fallback to Selenium
         driver = setup_driver(headless, download_path)
@@ -188,7 +188,8 @@ def main():
     """Main function."""
     # headless_input = input("Run in headless mode? (y/n) [default: n]: ").strip().lower()
     # headless = headless_input in ['y', 'yes']
-    headless = False
+    # headless = False
+    headless = True
     
     # wait_input = input("Wait time between downloads (seconds) [default: 5]: ").strip()
     wait_input = "5"
